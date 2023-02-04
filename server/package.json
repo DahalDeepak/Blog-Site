@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "blogsite backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DahalDeepak/Blog-site.git"
+  },
+  "author": "deep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DahalDeepak/Blog-site/issues"
+  },
+  "homepage": "https://github.com/DahalDeepak/Blog-site#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0"
+  }
+}

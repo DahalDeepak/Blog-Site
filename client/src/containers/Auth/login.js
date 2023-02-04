@@ -58,13 +58,24 @@ const Error = styled(Typography)`
   margin-top: 10px;
   font-weight: 600;
 `;
-
+const signupInitialValues = {
+  name: "",
+  emai: "",
+  password: "",
+};
 const Login = () => {
+
   const imageURL =
     "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
   const [account, toggleAccount] = useState("login");
+  const[signup, setSignup]= useState(signupInitialValues)
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
+  };
+  
+  // 6:38
+  const onInputChange = (e) => {
+    setSignup({...signup,[e.target.name]: e.target.value});
   };
   return (
     <Component>
@@ -72,8 +83,18 @@ const Login = () => {
         <Image src={imageURL} alt="logo" />
         {account === "login" ? (
           <Wrapper>
-            <TextField variant="standard" label="Enter Email" />
-            <TextField variant="standard" label="Enter Password" />
+            <TextField
+              variant="standard"
+              onChange={(e) => onInputChange(e)}
+              name="email"
+              label="Enter Email"
+            />
+            <TextField
+              variant="standard"
+              onChange={(e) => onInputChange(e)}
+              name="password"
+              label="Enter Password"
+            />
             <SubmitButton variant="contained">Login</SubmitButton>
             <Text style={{ textAlign: "center" }}>OR</Text>
             <SwitchButton onClick={() => toggleSignup()}>
@@ -82,8 +103,24 @@ const Login = () => {
           </Wrapper>
         ) : (
           <Wrapper>
-            <TextField variant="standard" label="Enter Email" />
-            <TextField variant="standard" label="Enter Password" />
+            <TextField
+              variant="standard"
+              onChange={(e) => onInputChange(e)}
+              name="name"
+              label="Enter your name"
+            />
+            <TextField
+              variant="standard"
+              onChange={(e) => onInputChange(e)}
+              name="email"
+              label="Enter Email"
+            />
+            <TextField
+              variant="standard"
+              onChange={(e) => onInputChange(e)}
+              name="password"
+              label="Enter Password"
+            />
             <SubmitButton variant="contained">Sign Up</SubmitButton>
             <Text style={{ textAlign: "center" }}>OR</Text>
             <SwitchButton onClick={() => toggleSignup()}>
