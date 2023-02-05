@@ -1,7 +1,7 @@
-import express from 'express';
+import express from "express";
 
-import signupUser from '../controller/userController.js';// hould contain extension
+import signupUser from "../controller/userController.js"; // hould contain extension
 const router = express.Router();
-router.post('/signup',signupUser)
+router.post("/signup", signupUser);
 
 export default router;

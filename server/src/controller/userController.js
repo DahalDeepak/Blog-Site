@@ -1,15 +1,23 @@
-export const signupUser = (req, res)=>{
-    try{
-        const user = req.body
-    }
-    catch(err){
-        console.log(err)
-    }
-    
+import User from "../models/users.js";
+export const signupUser = async (request, response) => {
+  try {
+    // const user = request.body;
+    // const hashedPassword = await bcrypt.hash(request.body.password, 10);
 
-}
-export default signupUser
-
+    const user = {
+      email: request.body.email,
+      name: request.body.name,
+      password: request.body.password,
+    };
+    const newUser = new User(user);
+    await newUser.save();
+    return response.status(200).json({ msg: "signup sucessfull" });
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json({ msg: "error while saving to db" });
+  }
+};
+export default signupUser;
 
 // import bcrypt from 'bcrypt';
 // import jwt from 'jsonwebtoken';
@@ -37,7 +45,6 @@ export default signupUser
 //     }
 // }
 
-
 // export const loginUser = async (request, response) => {
 //     let user = await User.findOne({ username: request.body.username });
 //     if (!user) {
@@ -49,12 +56,12 @@ export default signupUser
 //         if (match) {
 //             const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_SECRET_KEY, { expiresIn: '15m'});
 //             const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_SECRET_KEY);
-            
+
 //             const newToken = new Token({ token: refreshToken });
 //             await newToken.save();
-        
+
 //             response.status(200).json({ accessToken: accessToken, refreshToken: refreshToken,name: user.name, username: user.username });
-        
+
 //         } else {
 //             response.status(400).json({ msg: 'Password does not match' })
 //         }

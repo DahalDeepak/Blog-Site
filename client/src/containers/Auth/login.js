@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Box, Button, Typography, styled } from "@mui/material";
-
+import { API } from "../../API/api";
 const Component = styled(Box)`
   width: 400px;
   margin: auto;
@@ -60,22 +60,31 @@ const Error = styled(Typography)`
 `;
 const signupInitialValues = {
   name: "",
-  emai: "",
+  email: "",
   password: "",
 };
 const Login = () => {
-
   const imageURL =
     "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
   const [account, toggleAccount] = useState("login");
-  const[signup, setSignup]= useState(signupInitialValues)
+  const [signup, setSignup] = useState(signupInitialValues);
+  const [error, setError] = useState("");
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
   };
-  
-  // 6:38
+
+  const signupUser = async () => {
+    let response = API.userSignup(signup);
+    if (response.isSucess) {
+      setSignup(signupInitialValues);
+      toggleAccount("login");
+      setError("");
+    } else {
+      setError("something went wrong");
+    }
+  };
   const onInputChange = (e) => {
-    setSignup({...signup,[e.target.name]: e.target.value});
+    setSignup({ ...signup, [e.target.name]: e.target.value });
   };
   return (
     <Component>
@@ -121,7 +130,10 @@ const Login = () => {
               name="password"
               label="Enter Password"
             />
-            <SubmitButton variant="contained">Sign Up</SubmitButton>
+            {error && <Error>{error}</Error>}
+            <SubmitButton variant="contained" onClick={() => signupUser()}>
+              Sign Up
+            </SubmitButton>
             <Text style={{ textAlign: "center" }}>OR</Text>
             <SwitchButton onClick={() => toggleSignup()}>
               Already have an account
