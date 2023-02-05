@@ -1,18 +1,28 @@
-const mongoose = require("mongoose");
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import bodyParser from "body-parser";
 
+//components
+import Connection from "./database/db.js";
+import Router from "./routes/route.js";
 
-const app = require("express")();
-require("dotenv").config();
+dotenv.config();
 
-const port = process.env.PORT;
-const userName = process.env.DB_USERNAME
-const password = process.env.DB_PASSWORD
-app.listen(port, () => {
-  console.log(`server is running ${port}`);
-});
+const app = express();
 
-const URI =`mongodb://${userName}:${password}@ac-xv6zsch-shard-00-00.set2im1.mongodb.net:27017,ac-xv6zsch-shard-00-01.set2im1.mongodb.net:27017,ac-xv6zsch-shard-00-02.set2im1.mongodb.net:27017/?ssl=true&replicaSet=atlas-9ix274-shard-0&authSource=admin&retryWrites=true&w=majority`
-try{mongoose.connect(URI).then(()=>console.log("Connected to data base"))}
-catch(erro){
-  console.log("error occure",error)
-}
+// app.use(cors());
+// app.use(bodyParser.json({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/", Router);
+
+const PORT = process.env.PORT;
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+
+Connection(username,password);
+
+app.listen(PORT, () =>
+  console.log(`Server is running successfully on PORT ${PORT}`)
+);
+
