@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, Box, Button, Typography, styled } from "@mui/material";
 import { API } from "../../API/api";
+import { DataContext } from "../../context/dataProvider";
+import { useNavigate } from "react-router-dom";
 const Component = styled(Box)`
   width: 400px;
   margin: auto;
@@ -67,13 +69,15 @@ const signupInitialValues = {
   email: "",
   password: "",
 };
-const Login = () => {
+const Login = ({ setIsAuth }) => {
+  const navigate = useNavigate();
   const imageURL =
     "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
   const [account, toggleAccount] = useState("login");
   const [signup, setSignup] = useState(signupInitialValues);
   const [login, setLogin] = useState(loginInitialValues);
   const [error, setError] = useState("");
+  const { setAccount } = useContext(DataContext);
 
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
@@ -92,9 +96,28 @@ const Login = () => {
   };
   const loginUser = async () => {
     let response = await API.userLogin(login);
-    if (response.isSucess) {
+    // console.log(response)
+
+    if (response.isSuccess) {
+      // console.log("add")
       setError("");
+      sessionStorage.setItem(
+        "acessToken",
+        `Bearer ${response.data.acessToken}`
+      );
+      sessionStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
+      setAccount({
+        name: response.data.name,
+        email: response.data.email,
+      });
+      console.log("sucess");
+      setIsAuth(true);
+      navigate("/");
     } else {
+      setIsAuth(false);
       console.log(response.message);
       setError("sth went wrong while login");
     }
