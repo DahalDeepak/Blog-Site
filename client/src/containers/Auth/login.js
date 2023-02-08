@@ -58,6 +58,10 @@ const Error = styled(Typography)`
   margin-top: 10px;
   font-weight: 600;
 `;
+const loginInitialValues = {
+  email: "",
+  password: "",
+};
 const signupInitialValues = {
   name: "",
   email: "",
@@ -68,7 +72,9 @@ const Login = () => {
     "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
   const [account, toggleAccount] = useState("login");
   const [signup, setSignup] = useState(signupInitialValues);
+  const [login, setLogin] = useState(loginInitialValues);
   const [error, setError] = useState("");
+
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
   };
@@ -80,8 +86,21 @@ const Login = () => {
       toggleAccount("login");
       setError("");
     } else {
+      // console.log(response.msg)
       setError("something went wrong");
     }
+  };
+  const loginUser = async () => {
+    let response = await API.userLogin(login);
+    if (response.isSucess) {
+      setError("");
+    } else {
+      console.log(response.message);
+      setError("sth went wrong while login");
+    }
+  };
+  const onValueChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
   };
   const onInputChange = (e) => {
     setSignup({ ...signup, [e.target.name]: e.target.value });
@@ -90,21 +109,27 @@ const Login = () => {
     <Component>
       <Box>
         <Image src={imageURL} alt="logo" />
+        {error}
         {account === "login" ? (
           <Wrapper>
             <TextField
+              value={login.email}
               variant="standard"
-              onChange={(e) => onInputChange(e)}
+              onChange={(e) => onValueChange(e)}
               name="email"
               label="Enter Email"
             />
+
             <TextField
+              value={login.password}
               variant="standard"
-              onChange={(e) => onInputChange(e)}
+              onChange={(e) => onValueChange(e)}
               name="password"
               label="Enter Password"
             />
-            <SubmitButton variant="contained">Login</SubmitButton>
+            <SubmitButton variant="contained" onClick={() => loginUser()}>
+              Login
+            </SubmitButton>
             <Text style={{ textAlign: "center" }}>OR</Text>
             <SwitchButton onClick={() => toggleSignup()}>
               Create an account

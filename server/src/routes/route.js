@@ -1,7 +1,9 @@
 import express from "express";
 
-import signupUser from "../controller/userController.js"; // hould contain extension
+import  {signupUser, loginUser } from "../controller/userController.js"; // should contain extension
 const router = express.Router();
 router.post("/signup", signupUser);
+router.post("/login", loginUser);
+
 
 export default router;

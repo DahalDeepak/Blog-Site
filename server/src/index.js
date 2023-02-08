@@ -16,12 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", Router);
 
 const PORT = process.env.PORT;
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
+// const db_username = process.env.DB_USERNAME;
+// const password = process.env.DB_PASSWORD;
 
-Connection(username, password);
-// console.log(username);
-
+// Connection(db_username, password);
+Connection()
 app.listen(PORT, () =>
   console.log(`Server is running successfully on PORT ${PORT}`)
 );
