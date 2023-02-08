@@ -5,11 +5,11 @@ import Home from "./containers/Home/home";
 import Header from "./component/Header/header";
 import { useState } from "react";
 import {
-  BrowserRouter as Router,
+  BrowserRouter, 
   Switch,
   Route,
   Link,
-  BrowserRouter,
+
   Routes,
   Navigate,
   Outlet,
