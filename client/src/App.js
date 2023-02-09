@@ -3,13 +3,11 @@ import Login from "./containers/Auth/login";
 import Home from "./containers/Home/home";
 
 import Header from "./component/Header/header";
+import CreatePost from "./containers/create/createPost";
 import { useState } from "react";
 import {
-  BrowserRouter, 
-  Switch,
+  BrowserRouter,
   Route,
-  Link,
-
   Routes,
   Navigate,
   Outlet,
@@ -36,8 +34,10 @@ function App() {
           <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
 
           <Route path="/" element={<PrivateRoute isAuth={isAuth} />}>
-            {/* <Route path="/" element={<Header />} /> */}
             <Route path="/" element={<Home />} />
+          </Route>
+          <Route path="/create" element={<PrivateRoute isAuth={isAuth} />}>
+            <Route path="/create" element={<CreatePost />} />
           </Route>
         </Routes>
       </div>

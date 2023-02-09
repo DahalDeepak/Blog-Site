@@ -69,10 +69,11 @@ const signupInitialValues = {
   email: "",
   password: "",
 };
+// 
 const Login = ({ setIsAuth }) => {
   const navigate = useNavigate();
-  const imageURL =
-    "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
+  // const imageURL =
+  //   "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
   const [account, toggleAccount] = useState("login");
   const [signup, setSignup] = useState(signupInitialValues);
   const [login, setLogin] = useState(loginInitialValues);
@@ -131,7 +132,7 @@ const Login = ({ setIsAuth }) => {
   return (
     <Component>
       <Box>
-        <Image src={imageURL} alt="logo" />
+        <Image src="blog.png" alt="logo" />
         {error}
         {account === "login" ? (
           <Wrapper>
