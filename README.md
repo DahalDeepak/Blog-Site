@@ -16,7 +16,7 @@ A plateform where user can write their blog or read other blog.
 - Password encryption using Bcrypt.
 - Dotenv for storing environment variables.
 - JsonWebToken Authentication/Authorization.
-- Mongoose for creating schema in mongoDB
+- Mongoose for creating schema in mongoDB.
 
 ## Features
 

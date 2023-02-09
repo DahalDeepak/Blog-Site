@@ -24,7 +24,7 @@ const Header = () => {
     const navigate = useNavigate();
 
     const logout = async () => navigate('/account');
-        
+        console.log(logout)
     return (
         <Component>
             <Container>
